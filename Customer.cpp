@@ -36,4 +36,6 @@ class Customer : public User{
             cout << "Balance: " << Balance << endl;
             cout << "ISBN: " << ISBN << endl;
         }
+
+        // friend void LoadCustomers(fstream& customersFile);
 };

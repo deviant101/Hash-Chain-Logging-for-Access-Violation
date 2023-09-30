@@ -4,11 +4,39 @@
 #include "Library.cpp"
 using namespace std;
 
+void LoadCustomers(fstream& customersFile, Customer customers[150]);
+
 int main(){
 
     Library library;             //remove comment
     Customer customers[150];
     fstream customersFile;
+    LoadCustomers(customersFile, customers);
+    library.getCustomers_ptr(customers);
+    while(1){
+        cout<<"1 - Login as User\n"
+            <<"2 - Login as Admin\n"
+            <<"3 - Exit\n";
+        int choice=0;
+        cout<<"Select Option: ";
+        cin>>choice;
+        cout<<endl;
+        if(choice==1){
+            library.loginAsUser();
+        }
+        // else if(choice==2){
+        //     library.loginAsAdmin();
+        // }
+        if(choice==3)
+            break;
+    }
+
+
+    return 0;
+}
+
+void LoadCustomers(fstream& customersFile, Customer customers[150]){
+
     customersFile.open("customers.csv",ios::in);
     if(customersFile){
         string data="";
@@ -55,7 +83,4 @@ int main(){
         cout<<"File not found!"<<endl;
     }
 
-
-
-    return 0;
 }

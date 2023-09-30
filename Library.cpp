@@ -4,19 +4,12 @@
 #include "Book.cpp"
 using namespace std;
 
-int len(string str){
-    int len=0;
-    while(str[len]!='\0'){
-        len++;
-    }
-    return len;
-}
-
 class Library{
     public:
         Book books[100];
+        Customer *customers;
 
-        Library(){
+        Library():customers(nullptr){
             fstream booksfile;
             booksfile.open("books.csv", ios::in);
             if(booksfile){
@@ -63,6 +56,44 @@ class Library{
             else{
                 cout<<"File not found!"<<endl;
             }
+        }
+
+        void getCustomers_ptr(Customer *Customers){
+            customers=Customers;
+        }
+
+        void loginAsUser(){
+            cin.ignore();
+            int index=-10;
+            while(index==-10){
+                cout<<"Enter Username: ";
+                string username;
+                getline(cin,username);
+                index=SearchUserName(username);
+                if(index!=-10){
+                    while(1){
+                        cout<<"Enter Password: ";
+                        string password;
+                        getline(cin,password);
+                        if(password==customers[index].getPassword()){
+                            cout<<"\nLogged in as "<<customers[index].getName()<<"\n\n";
+                            break;
+                        }
+                        else
+                            cout<<"\nInvalid Password!\nTry Again\n"<<endl;
+                    }
+                }
+                else
+                    cout<<"\nUser not found!\nTry Again\n"<<endl;
+            }
+        }
+
+        int SearchUserName(string u_name){
+            for(int i=0; i<150; ++i){
+                if(u_name==customers[i].getUsername())
+                    return i;
+            }
+            return -10;
         }
     
 };
