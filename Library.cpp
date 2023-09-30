@@ -1,6 +1,9 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include<termios.h>
+#include<unistd.h>
+
 #include "Book.cpp"
 using namespace std;
 
@@ -73,10 +76,11 @@ class Library{
                 if(index!=-10){
                     while(1){
                         cout<<"Enter Password: ";
-                        string password;
-                        getline(cin,password);
+                        string password=maskPassword();
+                        // getline(cin,password);
                         if(password==customers[index].getPassword()){
                             cout<<"\nLogged in as "<<customers[index].getName()<<"\n\n";
+                            viewUser_Profile(index);
                             break;
                         }
                         else
@@ -86,6 +90,24 @@ class Library{
                 else
                     cout<<"\nUser not found!\nTry Again\n"<<endl;
             }
+        }       
+
+        void viewUser_Profile(int index){
+            cout<<"\t"<<customers[index].getName()<<" Profile"<<"\n\n";
+            cout<<"Full Name:\t"<<customers[index].getName()<<endl
+                <<"Username:\t"<<customers[index].getUsername()<<endl
+                <<"Password:\t"<<customers[index].getPassword()<<endl
+                <<"Credit Balance:\t"<<customers[index].getBalance()<<endl
+                <<"Library Fine:\t"<<customers[index].getFine()<<endl
+                <<"Book Borrowed:\t"<<searchBook_ISBN(customers[index].getISBN())<<"\n\n";
+        }
+        
+        string searchBook_ISBN(string str){
+            for(int i=0; i<100; i++){
+                if(books[i].getISBN()==str)
+                    return books[i].getBookName();
+            }
+            return "N/A";
         }
 
         int SearchUserName(string u_name){
@@ -94,6 +116,62 @@ class Library{
                     return i;
             }
             return -10;
+        }
+        ////////////////////////////////////////////////////////////////////////
+        string maskPassword()
+        {
+            //masking password with stars *
+            char* pass=new char[30];
+            string passwd="";
+            char ch;
+            int z=0,y=0;
+            while(1){
+                ch=getch();
+                if(ch==10){
+                    pass[z]+='\0';
+                    cout<<"\n";
+                    break;
+                }
+                else if(ch==127){
+                    cout<<"\b \b";
+                    z--;
+                    pass[z]='\0';
+                }
+                else{
+                    cout<<"*";
+                    pass[z]=ch;
+                    z++;
+                }
+            }  
+            for(int i=0;i<z;i++)
+                passwd+=pass[i];
+            return passwd;
+        }
+        char getch()
+        {
+            int a=0;
+            struct termios oter, nter;
+            int arr[10];
+            char c;
+            tcgetattr(STDIN_FILENO, &oter); // Save current terminal settings
+            nter = oter;
+            for(int i=0;i<10;i++)
+            {
+                arr[i]=1;
+            }
+            nter.c_lflag &= ~(ICANON | ECHO); // Disable canonical mode and echo
+            nter.c_cc[VMIN] = 1; // Wait for at least one character
+            if(arr[3]==2)
+                arr[3]=1;
+            arr[1]=2;
+            nter.c_cc[VTIME] = 0; // Disable timeout
+            for(int i=0;i<10;i++)
+                arr[i]=2;
+            tcsetattr(STDIN_FILENO, TCSANOW, &nter); // Apply new terminal settings
+            c = getchar(); // Read a single 
+            int b=9;
+            tcsetattr(STDIN_FILENO, TCSANOW, &oter); // Restore original terminal settings
+            return c;
         }
     
 };
