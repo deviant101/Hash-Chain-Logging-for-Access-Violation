@@ -87,7 +87,7 @@ class Library{
                             // Pay_LibraryFine(index);
                             // ReturnBook(index);
                             // BorrowBook(index);
-                            changeUserPassword(index);
+                            // changeUserPassword(index);
 
                             break;
                         }
@@ -114,7 +114,9 @@ class Library{
                         if(password==admin.getPassword()){
                             cout<<"\nLogged in as "<<admin.getName()<<"\n\n";
                             admin.viewProfile();
-                            changeAdminPassword();
+                            // changeAdminPassword();
+                            // viewUserProfile_as_Admin();
+                            cutFine();
 
                             break;
                         }
@@ -172,6 +174,52 @@ class Library{
                 }                    
                 else
                     cout<<"\nInvalid Password!\nTry Again\n"<<endl;
+            }
+        }
+
+        void viewUserProfile_as_Admin(){
+            int index=-10;
+            while(index==-10){
+                string username="";
+                cout<<"Enter username to Search: ";
+                getline(cin,username);
+                index=SearchUserName(username);
+                if(index!=-10){
+                    cout<<"\n\t"<<customers[index].getName()<<" Profile"<<"\n\n";
+                    cout<<"Full Name:\t"<<customers[index].getName()<<endl
+                        <<"Username:\t"<<customers[index].getUsername()<<endl
+                        <<"Credit Balance:\t"<<customers[index].getBalance()<<endl
+                        <<"Library Fine:\t"<<customers[index].getFine()<<endl;
+                    int bookindex=searchBook_ISBN(customers[index].getISBN());
+                    string bookname="N/A";
+                    if(bookindex!=-1)
+                        bookname=books[bookindex].getBookName();
+                    cout<<"Book Borrowed:\t"<<bookname<<"\n\n";
+                }
+                else
+                    cout<<"\nUser not found!\nTry Again\n"<<endl;
+            }
+        }
+
+        void cutFine(){
+            int index=-10;
+            while(index==-10){
+                string username="";
+                cout<<"Enter username to Search: ";
+                getline(cin,username);
+                index=SearchUserName(username);
+                if(index!=-10){
+                    cout<<customers[index].getName()<<" Library Fine:\t"<<customers[index].getFine()<<endl;
+                    if(customers[index].getBalance()>=customers[index].getFine()){
+                        customers[index].setBalance(customers[index].getBalance()-customers[index].getFine());
+                        customers[index].setFine(0);
+                        cout<<"\nFine Cleared!\n\n";
+                    }
+                    else
+                        cout<<"\nInsufficient Balance!\n\n";
+                }
+                else
+                    cout<<"\nUser not found!\nTry Again\n"<<endl;
             }
         }
 
