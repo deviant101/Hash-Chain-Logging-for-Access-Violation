@@ -116,7 +116,8 @@ class Library{
                             admin.viewProfile();
                             // changeAdminPassword();
                             // viewUserProfile_as_Admin();
-                            cutFine();
+                            // cutFine();
+                            Add_more_books_stock();
 
                             break;
                         }
@@ -192,7 +193,7 @@ class Library{
                         <<"Library Fine:\t"<<customers[index].getFine()<<endl;
                     int bookindex=searchBook_ISBN(customers[index].getISBN());
                     string bookname="N/A";
-                    if(bookindex!=-1)
+                    if(bookindex!=-10)
                         bookname=books[bookindex].getBookName();
                     cout<<"Book Borrowed:\t"<<bookname<<"\n\n";
                 }
@@ -220,6 +221,34 @@ class Library{
                 }
                 else
                     cout<<"\nUser not found!\nTry Again\n"<<endl;
+            }
+        }
+
+        void Add_more_books_stock(){
+            string isbn="";
+            int index=-10;
+            while(index==-10){
+                cout<<"Enter ISBN: ";
+                getline(cin,isbn);
+                index=searchBook_ISBN(isbn);
+                if(index!=-10){
+                    while(1){
+                        int book_no=0;
+                        cout<<"\nHow many more "<<books[index].getBookName()<<" books to add in availability stock: ";
+                        cin>>book_no;
+                        if(book_no>0){
+                            books[index].setAvailable(books[index].getAvailable()+book_no);
+                            books[index].setQuantity(books[index].getQuantity()+book_no);
+                            cout<<"\nAdded "<<book_no<<" more "<<books[index].getBookName()<<" books in stock!\n"
+                                <<"Total Availability: "<<books[index].getAvailable()<<" books in stock\n\n";
+                            break;
+                        }
+                        else
+                            cout<<"\nInvalid Input!\nTry again\n"<<endl;
+                    }
+                }
+                else
+                    cout<<"\nBook not found!\nTry again\n"<<endl;
             }
         }
 
@@ -269,7 +298,7 @@ class Library{
                 <<"Library Fine:\t"<<customers[index].getFine()<<endl;
             int bookindex=searchBook_ISBN(customers[index].getISBN());
             string bookname="N/A";
-            if(bookindex!=-1)
+            if(bookindex!=-10)
                 bookname=books[bookindex].getBookName();
             cout<<"Book Borrowed:\t"<<bookname<<"\n\n";
         }
@@ -280,7 +309,7 @@ class Library{
                 cout<<"Enter Book ISBN: ";
                 getline(cin,isbn);
                 int bookindex=searchBook_ISBN(isbn);
-                if(bookindex!=-1){
+                if(bookindex!=-10){
                     if(books[bookindex].getAvailable()>0){
                         books[bookindex].setAvailable(books[bookindex].getAvailable()-1);
                         cout<<endl<<books[bookindex].getBookName()<<" Book Borrowed!\n\n";
@@ -309,7 +338,7 @@ class Library{
                 if(books[i].getISBN()==str)
                     return i;
             }
-            return -1;
+            return -10;
         }
 
         int SearchUserName(string u_name){
