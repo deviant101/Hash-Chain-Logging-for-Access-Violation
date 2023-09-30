@@ -81,6 +81,9 @@ class Library{
                         if(password==customers[index].getPassword()){
                             cout<<"\nLogged in as "<<customers[index].getName()<<"\n\n";
                             viewUser_Profile(index);
+                            RechargeCredit(index);
+                            Pay_LibraryFine(index);
+
                             break;
                         }
                         else
@@ -90,7 +93,44 @@ class Library{
                 else
                     cout<<"\nUser not found!\nTry Again\n"<<endl;
             }
-        }       
+        }
+
+        void RechargeCredit(int index){
+            while(1){
+                cout<<"Enter amount to be recharged: ";
+                int amount;
+                cin>>amount;
+                if(amount>=0){
+                    customers[index].setBalance(customers[index].getBalance()+amount);
+                    return;
+                }
+                else
+                    cout<<"\nInvalid Amount!\nTry Again\n"<<endl;
+            }
+        }
+        
+        void Pay_LibraryFine(int index){
+
+            int fine=customers[index].getFine();
+            cout<<"Your Current Fine is "<<fine<<endl;
+            if(customers[index].getBalance()>=fine){
+                customers[index].setBalance(customers[index].getBalance()-fine);
+                customers[index].setFine(0);
+                cout<<"\nYou have Successfully payed your fine"<<endl;
+                cout<<"Your new Credit Balance is: "<<customers[index].getBalance()<<"\n\n";
+            }
+            else{
+                cout<<"\nPayment Failed!\n"
+                    <<"Insufficient Balance!\n\n"
+                    <<"Would you like to Recharge your credit Balance?(y/n): ";
+                char choice;
+                cin>>choice;
+                if(choice=='y' || choice=='Y'){
+                    RechargeCredit(index);
+                    Pay_LibraryFine(index);
+                }
+            }
+        }
 
         void viewUser_Profile(int index){
             cout<<"\t"<<customers[index].getName()<<" Profile"<<"\n\n";
