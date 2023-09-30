@@ -1,0 +1,101 @@
+Title,Author,ISBN,Quantity,Price,Available
+Fundamentals of Wavelets,Goswami Jaideva,1711,9,10,8
+Data Smart,Foreman John,1046,16,10,7
+God Created the Integers,Hawking Stephen,1544,15,10,5
+Superfreakonomics,Dubner Stephen,1451,23,20,4
+Orientalism,Said Edward,1777,24,10,2
+Nature of Statistical Learning Theory,Vapnik Vladimir,1039,17,50,10
+Integration of the Indian States,Menon V P,1807,9,10,6
+Drunkard's Walk,Mlodinow Leonard,1657,17,30,4
+Image Processing & Mathematical Morphology,Shih Frank,1112,2,20,6
+How to Think Like Sherlock Holmes,Konnikova Maria,1524,23,10,10
+Data Scientists at Work,Sebastian Gutierrez,1384,9,10,3
+Slaughterhouse Five,Vonnegut Kurt,1699,6,20,8
+Birth of a Theorem,Villani Cedric,1279,13,20,6
+Structure & Interpretation of Computer Programs,Sussman Gerald,1109,11,20,2
+Age of Wrath,Eraly Abraham,1045,25,20,9
+Trial,The Kafka Frank,1018,23,40,2
+Statistical Decision Theory,Pratt John,1270,2,10,3
+Data Mining Handbook,Nisbet Robert,1040,21,40,6
+New Machiavelli,The Wells H. G.,1148,16,30,7
+Physics & Philosophy,Heisenberg Werner,1436,13,20,6
+Making Software,Oram Andy,1602,22,30,1
+Analysis Vol I, Tao Terence,1855,13,30,6
+Machine Learning for Hackers,Conway Drew,1181,6,10,4
+Signal and the Noise,The Silver Nate,1244,8,10,2
+Python for Data Analysis,McKinney Wes,1790,12,50,7
+Introduction to Algorithms,Cormen Thomas,1641,23,30,8
+Beautiful and the Damned,The Deb Siddhartha,1011,4,10,10
+Outsider,The Camus Albert,1499,7,10,8
+Complete Sherlock Holmes The - Vol I,Doyle Arthur Conan,1128,24,10,7
+Complete Sherlock Holmes The - Vol II,Doyle Arthur Conan,1545,5,20,4
+Wealth of Nations,The Smith Adam,1861,6,10,4
+Pillars of the Earth,The Follett Ken,1505,4,50,5
+Mein Kampf,Hitler Adolf,1585,6,10,4
+Tao of Physics,The Capra Fritjof,1697,21,30,4
+Surely You're Joking Mr Feynman,Feynman Richard,1924,16,20,8
+Farewell to Arms,Hemingway Ernest,1320,24,10,0
+Veteran The Forsyth,Frederick,1340,20,10,4
+False Impressions,Archer Jeffery,1391,13,20,2
+Last Lecture,Pausch Randy,1412,23,20,6
+Return of the Primitive,Rand Ayn,1740,7,20,3
+Jurassic Park,Crichton Michael,1623,15,20,9
+Russian Journal,Steinbeck John,1251,25,40,3
+Tales of Mystery and Imagination,Poe Edgar Allen,1091,13,10,4
+Freakonomics,Dubner Stephen,1883,2,40,9
+Hidden Connections,Capra Fritjof,1927,18,30,6
+Story of Philosophy,Durant Will,1745,10,20,8
+Asami Asami,Deshpande P L,1682,6,30,9
+Journal of a Novel,Steinbeck John,1991,10,30,1
+Once There Was a War,Steinbeck John,1002,13,10,0
+Moon is Down, The Steinbeck John,1742,7,10,0
+Brethren,Grisham John,1448,5,50,7
+In a Free State,Naipaul V. S.,1920,23,30,1
+Catch 22,Heller Joseph,1301,9,10,4
+Complete Mastermind,BBC,1519,14,10,5
+Dylan on Dylan,Dylan Bob,1314,6,10,0
+Soft Computing & Intelligent Systems,Gupta Madan,1526,5,20,8
+Textbook of Economic Theory,Stonier Alfred,1921,17,10,4
+Econometric Analysis,Greene W. H,1288,16,50,8
+Learning OpenCV,Bradsky Gary,1545,23,10,8
+Data Structures Using C & C++,Tanenbaum Andrew,1491,16,30,2
+Computer Vision - A Modern Approach,Forsyth David,1144,3,20,3
+Principles of Communication Systems,Taub Schilling,1631,14,10,9
+Let Us C,Kanetkar Yashwant,1808,14,10,10
+Amulet of Samarkand,Stroud Jonathan,1280,1,20,9
+Crime and Punishment,Dostoevsky Fyodor,1497,24,20,4
+Angels & Demons,Brown Dan,1765,20,20,5
+Argumentative Indian,Sen Amartya,1162,8,20,0
+Sea of Poppies,Ghosh Amitav,1601,23,40,7
+Idea of Justice,The Sen Amartya,1173,7,10,0
+Raisin in the Sun,Hansberry Lorraine,1960,21,40,3
+All the President's Men,Woodward Bob,1448,7,30,2
+Prisoner of Birth,Archer Jeffery,1495,14,20,4
+Scoop!,Nayar Kuldip,1656,6,30,9
+Ahe Manohar Tari,Deshpande Sunita,1235,23,30,6
+Last Mughal,Dalrymple William,1091,19,10,0
+Social Choice & Welfare-Vol 39 No. 1,Various,1159,25,10,5
+Radiowaril Bhashane & Shrutika,Deshpande P L,1500,3,50,10
+Gun Gayin Awadi,Deshpande P L,1957,17,30,0
+Aghal Paghal,Deshpande P L,1797,8,10,2
+Maqta-e-Ghalib,Garg Sanjay,1354,12,10,9
+Beyond Degrees,Archer Jeffery,1224,14,10,6
+Manasa,Kale V P,1786,20,20,8
+India from Midnight to Milennium,Tharoor Shashi,1648,24,10,5
+World's Greatest Trials,Archer Jeffery,1856,4,50,6
+Great Indian Novel,Tharoor Shashi,1414,23,10,9
+O Jerusalem!,Lapierre Dominique,1081,16,30,6
+City of Joy,Lapierre Dominique,1742,8,20,2
+Freedom at Midnight,Lapierre Dominique,1171,15,10,7
+Winter of Our Discontent,Steinbeck John,1518,25,10,9
+On Education,Russell Bertrand,1847,7,20,9
+Free Will,Harris Sam,1602,7,20,0
+Bookless in Baghdad,Tharoor Shashi,1006,25,20,7
+Case of the Lame Canary-The Gardner, Earle Stanley,1779,20,20,7
+Theory of Everything,Hawking Stephen,1130,16,40,5
+New Markets & Other Essays,Drucker Peter,1650,10,10,6
+Electric Universe,Bodanis David,1407,11,40,3
+Hunchback of Notre Dame,Hugo Victor,1206,6,30,2
+Burning Bright,Steinbeck John,1651,13,20,5
+Age of Discontuinity,Drucker Peter,1514,25,30,7
+Doctor in the Nude,Gordon Richard,1990,12,30,9
