@@ -81,8 +81,10 @@ class Library{
                         if(password==customers[index].getPassword()){
                             cout<<"\nLogged in as "<<customers[index].getName()<<"\n\n";
                             viewUser_Profile(index);
-                            RechargeCredit(index);
-                            Pay_LibraryFine(index);
+                            // RechargeCredit(index);
+                            // Pay_LibraryFine(index);
+                            ReturnBook(index);
+                            BorrowBook(index);
 
                             break;
                         }
@@ -138,16 +140,50 @@ class Library{
                 <<"Username:\t"<<customers[index].getUsername()<<endl
                 <<"Password:\t"<<customers[index].getPassword()<<endl
                 <<"Credit Balance:\t"<<customers[index].getBalance()<<endl
-                <<"Library Fine:\t"<<customers[index].getFine()<<endl
-                <<"Book Borrowed:\t"<<searchBook_ISBN(customers[index].getISBN())<<"\n\n";
+                <<"Library Fine:\t"<<customers[index].getFine()<<endl;
+            int bookindex=searchBook_ISBN(customers[index].getISBN());
+            string bookname="N/A";
+            if(bookindex!=-1)
+                bookname=books[bookindex].getBookName();
+            cout<<"Book Borrowed:\t"<<bookname<<"\n\n";
         }
-        
-        string searchBook_ISBN(string str){
+
+        void BorrowBook(int index){
+            while(1){
+                string isbn="";
+                cout<<"Enter Book ISBN: ";
+                getline(cin,isbn);
+                int bookindex=searchBook_ISBN(isbn);
+                if(bookindex!=-1){
+                    if(books[bookindex].getAvailable()>0){
+                        books[bookindex].setAvailable(books[bookindex].getAvailable()-1);
+                        cout<<endl<<books[bookindex].getBookName()<<" Book Borrowed!\n\n";
+                        customers[index].setISBN(books[bookindex].getISBN());
+                        break;
+                    }
+                    else{
+                        cout<<endl<<books[bookindex].getBookName()<<" is not available!\nTry Again Later\n"<<endl;
+                        break;
+                    }
+                }
+                else
+                    cout<<"\nInvalid Book ISBN!\nTry Again\n\n";
+            }
+        }
+
+        void ReturnBook(int index){
+                int bookindex=searchBook_ISBN(customers[index].getISBN());
+                books[bookindex].setAvailable(books[bookindex].getAvailable()+1);
+                cout<<endl<<books[bookindex].getBookName()<<" Book Returned!\n\n";
+                customers[index].setISBN("nill");
+        }
+
+        int searchBook_ISBN(string str){
             for(int i=0; i<100; i++){
                 if(books[i].getISBN()==str)
-                    return books[i].getBookName();
+                    return i;
             }
-            return "N/A";
+            return -1;
         }
 
         int SearchUserName(string u_name){
