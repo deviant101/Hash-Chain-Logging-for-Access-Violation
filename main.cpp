@@ -21,9 +21,10 @@ int main(){
         cout<<"Select Option: ";
         cin>>choice;
         cout<<endl;
-        if(choice==1){
+        if(choice==1)
             library.loginAsUser();
-        }
+        else if(choice==2)
+            library.loginAsAdmin();
         // else if(choice==2){
         //     library.loginAsAdmin();
         // }

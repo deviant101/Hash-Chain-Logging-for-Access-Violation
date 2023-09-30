@@ -1,16 +1,18 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include<termios.h>
-#include<unistd.h>
+#include <termios.h>
+#include <unistd.h>
 
 #include "Book.cpp"
+#include "Admin.cpp"
 using namespace std;
 
 class Library{
     public:
         Book books[100];
         Customer *customers;
+        Admin admin;
 
         Library():customers(nullptr){
             fstream booksfile;
@@ -83,8 +85,9 @@ class Library{
                             viewUser_Profile(index);
                             // RechargeCredit(index);
                             // Pay_LibraryFine(index);
-                            ReturnBook(index);
-                            BorrowBook(index);
+                            // ReturnBook(index);
+                            // BorrowBook(index);
+                            changeUserPassword(index);
 
                             break;
                         }
@@ -94,6 +97,81 @@ class Library{
                 }
                 else
                     cout<<"\nUser not found!\nTry Again\n"<<endl;
+            }
+        }
+
+        void loginAsAdmin(){
+            cin.ignore();
+            while(1){
+                cout<<"Enter Username: ";
+                string username="";
+                getline(cin,username);
+                if(username==admin.getUsername()){
+                    while(1){
+                        cout<<"Enter Password: ";
+                        string password=maskPassword();
+                        // getline(cin,password);
+                        if(password==admin.getPassword()){
+                            cout<<"\nLogged in as "<<admin.getName()<<"\n\n";
+                            admin.viewProfile();
+                            changeAdminPassword();
+
+                            break;
+                        }
+                        else
+                            cout<<"\nInvalid Password!\nTry Again\n"<<endl;
+                    }
+                    break;
+                }
+                else
+                    cout<<"\nUser not found!\nTry Again\n"<<endl;
+            }
+        }
+        void changeUserPassword(int index){
+            string pass="";
+            while(1){
+                cout<<"Enter old Password: ";
+                // getline(cin,pass);
+                pass=maskPassword();
+                if(pass==customers[index].getPassword()){
+                    cout<<"Enter new Password: ";
+                    string newpass=maskPassword();
+                    if(newpass==customers[index].getPassword()){
+                        cout<<"\nCannot use old password!\n"
+                            <<"Try again\n\n";
+                        continue;
+                    }
+                    // getline(cin,newpass);
+                    customers[index].setPassword(newpass);
+                    cout<<"\nPassword Changed!\n\n";
+                    break;
+                }                    
+                else
+                    cout<<"\nInvalid Password!\nTry Again\n"<<endl;
+            }
+        }
+
+        void changeAdminPassword(){
+            string pass="";
+            while(1){
+                cout<<"Enter old Password: ";
+                // getline(cin,pass);
+                pass=maskPassword();
+                if(pass==admin.getPassword()){
+                    cout<<"Enter new Password: ";
+                    string newpass=maskPassword();
+                    if(newpass==admin.getPassword()){
+                        cout<<"\nCannot use old password!\n"
+                            <<"Try again\n\n";
+                        continue;
+                    }
+                    // getline(cin,newpass);
+                    admin.setPassword(newpass);
+                    cout<<"\nPassword Changed!\n\n";
+                    break;
+                }                    
+                else
+                    cout<<"\nInvalid Password!\nTry Again\n"<<endl;
             }
         }
 
