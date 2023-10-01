@@ -10,6 +10,9 @@
 #include "Chain.cpp"
 using namespace std;
 
+const string logBackup="./Backup/LogsBackup.csv";
+const string hashBackup="./Backup/HashesBackup.csv";
+
 class Library{
     public:
         Book books[100];
@@ -69,17 +72,14 @@ class Library{
                 cout<<"File not found!"<<endl;
 
             //Loading Logs
-            int count = 1;
-            logfileStream.open("Logs.csv",ios::in);
+            logfileStream.open("Logs.csv",ios::in | ios::app);
             if(logfileStream){
                 while(1){
                     string data="";
                     getline(logfileStream,data);
                     if(logfileStream.eof())
                         break;
-                    cout<<count<<" - "<<data<<endl;
                     logChain.append(data);
-                    ++count;
                 }
                 logfileStream.close();
             }
@@ -87,17 +87,14 @@ class Library{
                 cout<<"File not found!"<<endl;
 
             //Loading Hashes
-            count=1;
-            HashfileStream.open("Hash.csv",ios::in);
+            HashfileStream.open("Hash.csv",ios::in | ios::app);
             if(HashfileStream){
                 while(1){
                     string data="";
                     getline(HashfileStream,data);
                     if(HashfileStream.eof())
                         break;
-                    cout<<count<<" - "<<data<<endl;
                     hashChain.append(data);
-                    ++count;
                 }
                 HashfileStream.close();
             }
@@ -132,9 +129,9 @@ class Library{
                             // ReturnBook(index);
                             // BorrowBook(index);
                             // changeUserPassword(index);
-                            cout<<"Hash: "<<hashChain.Tail->Prev->Block<<endl;
+                            // cout<<"Hash: "<<hashChain.Tail->Prev->Block<<endl;
                             // logChain.printLast();
-                            cout<<"Log: "<<logChain.Tail->Prev->Block<<endl;
+                            // cout<<"Log: "<<logChain.Tail->Prev->Block<<endl;
                             // hashChain.printLast();
 
                             break;
@@ -413,6 +410,7 @@ class Library{
             hashChain.append(sha256(log));
 
             logfileStream.close();
+            Backup_for_Recovery();
         }
 
         string copyTime(string time){
@@ -420,6 +418,33 @@ class Library{
             for(int i=0 ; i<time.length()-1; ++i)
                 tempTime+=time[i];
             return tempTime;
+        }
+
+        void Backup_for_Recovery(){
+            fstream bacupkLogs;
+            bacupkLogs.open(logBackup,ios::out | ios::trunc);
+            if(bacupkLogs){
+                Node *current=logChain.Head;
+                while(current!=nullptr){
+                    bacupkLogs<<current->Block<<endl;
+                    current=current->Next;
+                }
+            }
+            else
+                cout<<"\nFailed to backup\n\n";
+
+            fstream backupHashes;
+            backupHashes.open(hashBackup,ios::out | ios::trunc);
+            if(backupHashes){
+                Node *current=hashChain.Head;
+                while(current!=nullptr){
+                    backupHashes<<current->Block<<endl;
+                    current=current->Next;
+                }
+            }
+            else
+                cout<<"\nFailed to backup\n\n";
+            
         }
 
         ////////////////////////////////////////////////////////////////////////
