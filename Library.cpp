@@ -6,6 +6,7 @@
 
 #include "Book.cpp"
 #include "Admin.cpp"
+#include "sha256.cpp"
 using namespace std;
 
 class Library{
@@ -64,6 +65,9 @@ class Library{
                 cout<<"File not found!"<<endl;
             logfileStream.open("Logs.csv",ios::in | ios::out | ios::app);
             if(!logfileStream)
+                cout<<"File not found!"<<endl;
+            HashfileStream.open("Hash.csv",ios::in | ios::out | ios::app);
+            if(!HashfileStream)
                 cout<<"File not found!"<<endl;
         }
 
@@ -361,6 +365,8 @@ class Library{
             string currentTimeString = ctime(&currentTime);
             string log="Time: "+copyTime(currentTimeString)+", User: "+user+", Requested Action: "+action+", Result: "+result;
             logfileStream<<log<<endl;
+            // cout<<sha256(log)<<endl;
+            HashfileStream<<sha256(log)<<endl;
         }
         string copyTime(string time){
             string tempTime="";
