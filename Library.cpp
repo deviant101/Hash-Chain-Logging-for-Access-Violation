@@ -13,6 +13,8 @@ class Library{
         Book books[100];
         Customer *customers;
         Admin admin;
+        fstream logfileStream;
+        fstream HashfileStream;
 
         Library():customers(nullptr){
             fstream booksfile;
@@ -58,9 +60,11 @@ class Library{
                 // books[99].Display();
                 booksfile.close();
             }
-            else{
+            else
                 cout<<"File not found!"<<endl;
-            }
+            logfileStream.open("Logs.csv",ios::in | ios::out | ios::app);
+            if(!logfileStream)
+                cout<<"File not found!"<<endl;
         }
 
         void getCustomers_ptr(Customer *Customers){
@@ -81,6 +85,7 @@ class Library{
                         string password=maskPassword();
                         // getline(cin,password);
                         if(password==customers[index].getPassword()){
+                            create_Log(customers[index].getName(),"Log in","Logged in Successfully");
                             cout<<"\nLogged in as "<<customers[index].getName()<<"\n\n";
                             viewUser_Profile(index);
                             // RechargeCredit(index);
@@ -348,6 +353,22 @@ class Library{
             }
             return -10;
         }
+
+        void create_Log(string user, string action, string result){
+            
+            time_t currentTime;
+            time(&currentTime);
+            string currentTimeString = ctime(&currentTime);
+            string log="Time: "+copyTime(currentTimeString)+", User: "+user+", Requested Action: "+action+", Result: "+result;
+            logfileStream<<log<<endl;
+        }
+        string copyTime(string time){
+            string tempTime="";
+            for(int i=0 ; i<time.length()-1; ++i)
+                tempTime+=time[i];
+            return tempTime;
+        }
+
         ////////////////////////////////////////////////////////////////////////
         string maskPassword()
         {
