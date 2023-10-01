@@ -5,9 +5,11 @@ class Node{
     public:
         string Block;
         Node* Next;
+        Node* Prev;
 
         Node(){
             Block = "";
-            Next = NULL;
+            Next = nullptr;
+            Prev = nullptr;
         }
 };

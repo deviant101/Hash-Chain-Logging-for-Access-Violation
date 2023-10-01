@@ -10,7 +10,6 @@ class Chain{
             Head = nullptr;
             Tail = nullptr;
         }
-
         void append(string data){
             Node *temp = new Node;
             temp->Block = data;
@@ -19,8 +18,11 @@ class Chain{
                 Tail = temp;
             }
             else{
+                // cout<<"Before Tail: "<<Tail->Block<<endl;
+                temp->Prev=Tail;
                 Tail->Next = temp;
                 Tail = temp;
+                // cout<<"After Tail: "<<Tail->Block<<endl;
             }
         }
         void printLast(){

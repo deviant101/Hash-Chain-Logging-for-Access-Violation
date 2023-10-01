@@ -68,26 +68,36 @@ class Library{
             else
                 cout<<"File not found!"<<endl;
 
+            //Loading Logs
+            int count = 1;
             logfileStream.open("Logs.csv",ios::in);
             if(logfileStream){
-                while(!logfileStream.eof()){
+                while(1){
                     string data="";
                     getline(logfileStream,data);
+                    if(logfileStream.eof())
+                        break;
+                    cout<<count<<" - "<<data<<endl;
                     logChain.append(data);
-                    logChain.printLast();
+                    ++count;
                 }
                 logfileStream.close();
             }
             else
                 cout<<"File not found!"<<endl;
 
+            //Loading Hashes
+            count=1;
             HashfileStream.open("Hash.csv",ios::in);
             if(HashfileStream){
-                while(!HashfileStream.eof()){
+                while(1){
                     string data="";
                     getline(HashfileStream,data);
+                    if(HashfileStream.eof())
+                        break;
+                    cout<<count<<" - "<<data<<endl;
                     hashChain.append(data);
-                    hashChain.printLast();
+                    ++count;
                 }
                 HashfileStream.close();
             }
@@ -122,6 +132,10 @@ class Library{
                             // ReturnBook(index);
                             // BorrowBook(index);
                             // changeUserPassword(index);
+                            cout<<"Hash: "<<hashChain.Tail->Prev->Block<<endl;
+                            // logChain.printLast();
+                            cout<<"Log: "<<logChain.Tail->Prev->Block<<endl;
+                            // hashChain.printLast();
 
                             break;
                         }
