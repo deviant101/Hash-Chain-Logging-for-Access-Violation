@@ -7,6 +7,7 @@
 #include "Book.cpp"
 #include "Admin.cpp"
 #include "sha256.cpp"
+#include "Chain.cpp"
 using namespace std;
 
 class Library{
@@ -16,6 +17,9 @@ class Library{
         Admin admin;
         fstream logfileStream;
         fstream HashfileStream;
+        Chain hashChain;
+        Chain logChain;
+        
 
         Library():customers(nullptr){
             fstream booksfile;
@@ -63,12 +67,33 @@ class Library{
             }
             else
                 cout<<"File not found!"<<endl;
-            logfileStream.open("Logs.csv",ios::in | ios::out | ios::app);
-            if(!logfileStream)
+
+            logfileStream.open("Logs.csv",ios::in);
+            if(logfileStream){
+                while(!logfileStream.eof()){
+                    string data="";
+                    getline(logfileStream,data);
+                    logChain.append(data);
+                    logChain.printLast();
+                }
+                logfileStream.close();
+            }
+            else
                 cout<<"File not found!"<<endl;
-            HashfileStream.open("Hash.csv",ios::in | ios::out | ios::app);
-            if(!HashfileStream)
+
+            HashfileStream.open("Hash.csv",ios::in);
+            if(HashfileStream){
+                while(!HashfileStream.eof()){
+                    string data="";
+                    getline(HashfileStream,data);
+                    hashChain.append(data);
+                    hashChain.printLast();
+                }
+                HashfileStream.close();
+            }
+            else
                 cout<<"File not found!"<<endl;
+
         }
 
         void getCustomers_ptr(Customer *Customers){
@@ -364,10 +389,18 @@ class Library{
             time(&currentTime);
             string currentTimeString = ctime(&currentTime);
             string log="Time: "+copyTime(currentTimeString)+", User: "+user+", Requested Action: "+action+", Result: "+result;
+
+            logfileStream.open("Logs.csv",ios::out | ios::app);
             logfileStream<<log<<endl;
-            // cout<<sha256(log)<<endl;
+            logChain.append(log);
+
+            HashfileStream.open("Hash.csv",ios::out | ios::app);
             HashfileStream<<sha256(log)<<endl;
+            hashChain.append(sha256(log));
+
+            logfileStream.close();
         }
+
         string copyTime(string time){
             string tempTime="";
             for(int i=0 ; i<time.length()-1; ++i)
