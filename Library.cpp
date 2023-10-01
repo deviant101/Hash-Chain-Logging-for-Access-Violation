@@ -123,16 +123,48 @@ class Library{
                         if(password==customers[index].getPassword()){
                             create_Log(customers[index].getName(),"Log in","Logged in Successfully");
                             cout<<"\nLogged in as "<<customers[index].getName()<<"\n\n";
-                            viewUser_Profile(index);
-                            // RechargeCredit(index);
-                            // Pay_LibraryFine(index);
-                            // ReturnBook(index);
-                            // BorrowBook(index);
-                            // changeUserPassword(index);
+                            while(1){
+                                cout<<"\n1 - View Profile"
+                                    <<"\n2 - Recharge Credit"
+                                    <<"\n3 - Pay Library Fine"
+                                    <<"\n4 - Return Book"
+                                    <<"\n5 - Borrow Book"
+                                    <<"\n6 - Change Password"
+                                    <<"\n7 - Log Out"
+                                    <<"\nSelect any Option: ";
+                                int choice=0;
+                                cin>>choice;
+                                cin.ignore();
+                                if(choice==1){
+                                    viewUser_Profile(index);
+                                }
+                                else if(choice==2){
+                                    RechargeCredit(index);
+                                }
+                                else if(choice==3){
+                                    Pay_LibraryFine(index);
+                                }
+                                else if(choice==4){
+                                    ReturnBook(index);
+                                }
+                                else if(choice==5){
+                                    BorrowBook(index);
+                                }
+                                else if(choice==6){
+                                    changeUserPassword(index);
+                                }
+                                else if(choice==7){
+                                    create_Log(customers[index].getName(),"Logging Out","Logged Out Successfully");
+                                    break;
+                                }
+                                else
+                                    cout<<"Invalid! Try again!"<<endl;
+                            
                             // cout<<"Hash: "<<hashChain.Tail->Prev->Block<<endl;
                             // logChain.printLast();
                             // cout<<"Log: "<<logChain.Tail->Prev->Block<<endl;
                             // hashChain.printLast();
+                            }
 
                             break;
                         }
@@ -187,15 +219,19 @@ class Library{
                     if(newpass==customers[index].getPassword()){
                         cout<<"\nCannot use old password!\n"
                             <<"Try again\n\n";
+                        create_Log(customers[index].getName(),"Password Change Attempt","Old Password");
                         continue;
                     }
                     // getline(cin,newpass);
                     customers[index].setPassword(newpass);
                     cout<<"\nPassword Changed!\n\n";
+                    create_Log(customers[index].getName(),"Password Change Attempt","Password Changed Successfully");
                     break;
                 }                    
-                else
+                else{
                     cout<<"\nInvalid Password!\nTry Again\n"<<endl;
+                    create_Log(customers[index].getName(),"Password Change Attempt","Invalid Old Password!");
+                }
             }
         }
 
@@ -304,10 +340,13 @@ class Library{
                 cin>>amount;
                 if(amount>=0){
                     customers[index].setBalance(customers[index].getBalance()+amount);
+                    create_Log(customers[index].getName(),"Credit Recharge","Successfully Recharged");
                     return;
                 }
-                else
+                else{
                     cout<<"\nInvalid Amount!\nTry Again\n"<<endl;
+                    create_Log(customers[index].getName(),"Credit Recharge","Invalid Amount!");
+                }
             }
         }
         
@@ -320,11 +359,13 @@ class Library{
                 customers[index].setFine(0);
                 cout<<"\nYou have Successfully payed your fine"<<endl;
                 cout<<"Your new Credit Balance is: "<<customers[index].getBalance()<<"\n\n";
+                create_Log(customers[index].getName(),"Fine Payment","Fine Payed Successfully");
             }
             else{
                 cout<<"\nPayment Failed!\n"
                     <<"Insufficient Balance!\n\n"
                     <<"Would you like to Recharge your credit Balance?(y/n): ";
+                create_Log(customers[index].getName(),"Fine Payment","Payment Failed");
                 char choice;
                 cin>>choice;
                 if(choice=='y' || choice=='Y'){
@@ -346,6 +387,9 @@ class Library{
             if(bookindex!=-10)
                 bookname=books[bookindex].getBookName();
             cout<<"Book Borrowed:\t"<<bookname<<"\n\n";
+
+            create_Log(customers[index].getName(),"Viewed Profile Details","Successfully Viewded Profile Details");
+
         }
 
         void BorrowBook(int index){
@@ -359,15 +403,19 @@ class Library{
                         books[bookindex].setAvailable(books[bookindex].getAvailable()-1);
                         cout<<endl<<books[bookindex].getBookName()<<" Book Borrowed!\n\n";
                         customers[index].setISBN(books[bookindex].getISBN());
+                        create_Log(customers[index].getName(),"Borrow Book","Book Borrowed Successfully");
                         break;
                     }
                     else{
                         cout<<endl<<books[bookindex].getBookName()<<" is not available!\nTry Again Later\n"<<endl;
+                        create_Log(customers[index].getName(),"Borrow Book","Book not Available");
                         break;
                     }
                 }
                 else
                     cout<<"\nInvalid Book ISBN!\nTry Again\n\n";
+                    create_Log(customers[index].getName(),"Borrow Book","Invalid Book ISBN!");
+                    
             }
         }
 
@@ -376,6 +424,7 @@ class Library{
                 books[bookindex].setAvailable(books[bookindex].getAvailable()+1);
                 cout<<endl<<books[bookindex].getBookName()<<" Book Returned!\n\n";
                 customers[index].setISBN("nill");
+                create_Log(customers[index].getName(),"Return Boook","Successfully Returned");
         }
 
         int searchBook_ISBN(string str){
@@ -410,7 +459,6 @@ class Library{
             if(hashChain.Tail!=nullptr)
                 salt=hashChain.Tail->Block;
             log+=salt;
-            cout<<log<<endl;
             HashfileStream<<sha256(log)<<endl;
             hashChain.append(sha256(log));
 
@@ -449,9 +497,11 @@ class Library{
                 }
             }
             else
-                cout<<"\nFailed to backup\n\n";
-            
+                cout<<"\nFailed to backup\n\n";   
         }
+        void Recovery()[
+            
+        ]
 
         ////////////////////////////////////////////////////////////////////////
         string maskPassword()
