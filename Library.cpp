@@ -406,10 +406,16 @@ class Library{
             logChain.append(log);
 
             HashfileStream.open("Hash.csv",ios::out | ios::app);
+            string salt="SALT";
+            if(hashChain.Tail!=nullptr)
+                salt=hashChain.Tail->Block;
+            log+=salt;
+            cout<<log<<endl;
             HashfileStream<<sha256(log)<<endl;
             hashChain.append(sha256(log));
 
             logfileStream.close();
+            HashfileStream.close();
             Backup_for_Recovery();
         }
 
